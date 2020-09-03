@@ -25,3 +25,11 @@ app.use(express.static("website"));
 app.listen(port, () => {
   console.log(`the app is listening at http://localhost:${port}`);
 });
+
+app.get("/data", (req, res) => {
+  res.send(projectData);
+});
+
+app.post("/updateData", (req, res) => {
+  projectData = req.body;
+});
