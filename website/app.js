@@ -17,14 +17,13 @@ generateButton.addEventListener("click", () => {
   const date = newDate();
   getWeatherData(zipCode, WEATHER_API_KEY)
     .then((weatherData) => {
-      console.log(weatherData);
       const temp = weatherData.main.temp;
       updateServerData({ temp, userFeelings, date });
     })
-    .then(getServerData())
-    .then((data) => {
-      console.log("data passed to the callback", data);
-      updateUI(data);
+    .then(getServerData)
+    .then(updateUI)
+    .catch((e) => {
+      console.log("An Error happened", e);
     });
 });
 
@@ -59,7 +58,6 @@ const updateServerData = async (data) => {
 const getServerData = async () => {
   const response = await fetch("/data");
   const data = await response.json();
-  console.log("dataform server", data);
   return data;
 };
 
